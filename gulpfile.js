@@ -29,33 +29,8 @@ function compilaSass(){
         .pipe(gulp.dest('./build/styles'));
 }
 
-function funcaoPadrao(callback){
-    setTimeout(function(){
-        console.log("Executado, via Gulp"); //subir linha de comando, Alt + direciona pra cima.
-        callback();
-    },2000);
-}
-
-
-function dizOi(callback){
-    setTimeout (function(){
-        console.log("Olá, Gulp");
-        dizTchau();
-        callback();
-
-    }, 1000);
-}
-
-function dizTchau(){
-    console.log("Tchau, Gulp"); //tarefas privadas não são exportadas mas são executadas atravez de outras.
-}
-
-exports.default = gulp.parallel(funcaoPadrao, dizOi);
-exports.dizOi = dizOi;
-exports.sass = compilaSass;
-exports.watch = function() {
+exports.default = function() {
     gulp.watch('./source/styles/*.scss',{ ignoreInitial:false}, gulp.series(compilaSass));
+    gulp.watch('./source/scripts/*.js',{ ignoreInitial:false}, gulp.series(comprimeJavaScript));
+    gulp.watch('./source/images/*',{ ignoreInitial:false}, gulp.series(comprimeImagens));
 }
-exports.javascript = comprimeJavaScript;
-exports.images = comprimeImagens;
-//parei no video parte 06:30 aula 16.6
