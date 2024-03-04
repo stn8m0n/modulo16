@@ -3,6 +3,14 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 const obfuscate = require('gulp-obfuscate');
+const imagemin = require('gulp-imagemin');
+
+function comprimeImagens(){
+    return gulp.src('./source/images/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('./build/images'));
+
+}
 
 function comprimeJavaScript(){
     return gulp.src('./source/scripts/*.js')
@@ -49,4 +57,5 @@ exports.watch = function() {
     gulp.watch('./source/styles/*.scss',{ ignoreInitial:false}, gulp.series(compilaSass));
 }
 exports.javascript = comprimeJavaScript;
+exports.images = comprimeImagens;
 //parei no video parte 06:30 aula 16.6
